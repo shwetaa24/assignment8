@@ -1,0 +1,26 @@
+stages:
+  - deploy
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "🚀 Deploying to STAGING environment"
+  only:
+    - staging
+  environment:
+    name: staging
+
+deploy_production:
+  stage: deploy
+  script:
+    - echo "🚀 Deploying to PRODUCTION environment"
+  only:
+    - main
+  environment:
+    name: production
+    url: https://your-production-url.com
+  when: manual
+  allow_failure: false
+  needs:
+    - job: deploy_staging
+
